@@ -103,7 +103,7 @@ class Resubscribe
         $content = <<<EEE
         <a data-remodal-target="modal" href="#modal">Call the modal with data-remodal-id="modal"</a>
 
-        <div class="remodal" data-remodal-id="modal">
+        <div class="remodal" data-remodal-id="modal" data-remodel-options="hashTracking: false">
             <h2>النشرة البريدية</h2>
             <p>يرجى إدخال بريدك الإلكتروني للاشتراك بالنشرة البريدية</p>
             <input type="email" name="email" placeholder="Email address (e.g. example@company.com)" dir="ltr">
@@ -111,7 +111,6 @@ class Resubscribe
             <a class="remodal-confirm" href="#">تسجيل</a>
             <a class="remodal-cancel" href="#">إلغاء</a>
         </div>
-
 EEE;
         echo $content;
     }

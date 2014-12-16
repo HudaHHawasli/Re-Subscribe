@@ -1,4 +1,4 @@
-jQuery(window).load(function () {
+jQuery(document).ready(function ($) {
 
     // save cookie for 100 days
     var days = 1000 * 60 * 60 * 24 * 100;
@@ -9,14 +9,12 @@ jQuery(window).load(function () {
 
     // display popup after 20 seconds.
     setTimeout(function () {
-    }, 2000);
-    var options = {
-        hashTracking: false
-    };
-    jQuery('[data-remodal-id=modal]').remodal(options).open();
+        var $inst = $.remodal.lookup[$('[data-remodal-id=modal]').data('remodal')];
+        $inst.open();
+    }, 20000);
 
-    jQuery(document).on('confirm', '.remodal', function () {
+    $(document).on('confirm', '.remodal', function () {
         // Handle form submittion here (Ajax?)
-        jQuery(this).find("form").submit();
+        $(this).find("form").submit();
     });
 });
