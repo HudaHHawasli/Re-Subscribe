@@ -1,0 +1,17 @@
+{
+    "name": "haykalmedia/re-subscribe",
+    "description": "Modern modal for displaying newsletter subscribtion responsive modal",
+    "type": "wordpress-plugin",
+    "keywords": ["wordpress", "plugin", "modal", "subscribe", "subscription"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Ammar Alakkad",
+            "email": "am.alakkad@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "composer/installers": "~1.0"
+    }
+}
