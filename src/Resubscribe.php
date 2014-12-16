@@ -34,8 +34,9 @@ class Resubscribe
      */
     public function registerScripts()
     {
-        wp_register_script('remodal', plugins_url('../assets/jquery.remodal.min.js', __FILE__), ['jquery'], null, true);
+        wp_register_script('remodal', plugins_url('../assets/jquery.remodal.js', __FILE__), ['jquery'], null, true);
         wp_register_style('remodal', plugins_url('../assets/jquery.remodal.css', __FILE__));
+        wp_register_script('resubscribe', plugins_url('../assets/resubscribe.js', __FILE__), ['jquery', 'remodal'], null, true);
     }
 
     /**
@@ -45,7 +46,13 @@ class Resubscribe
      */
     public function enqueueScripts()
     {
-        wp_enqueue_script('remodal');
+        $domain = preg_replace('/(?:https?:\/\/)?(?:www\.)?(.*)/', '$1', get_home_url());
+
+        wp_localize_script('resubscribe', 'resubscribe', [
+                                                            'key' => $this->cookieKey,
+                                                            'domain' => $domain
+                                                         ]);
+        wp_enqueue_script('resubscribe');
         wp_enqueue_style('remodal');
     }
     /**
@@ -96,7 +103,7 @@ class Resubscribe
         $content = <<<EEE
         <a data-remodal-target="modal" href="#modal">Call the modal with data-remodal-id="modal"</a>
 
-        <div class="remodal" data-remodal-id="modal" data-remodal-options="hashTracking: false">
+        <div class="remodal" data-remodal-id="modal">
             <h2>النشرة البريدية</h2>
             <p>يرجى إدخال بريدك الإلكتروني للاشتراك بالنشرة البريدية</p>
             <input type="email" name="email" placeholder="Email address (e.g. example@company.com)" dir="ltr">
@@ -108,5 +115,4 @@ class Resubscribe
 EEE;
         echo $content;
     }
-
 }
