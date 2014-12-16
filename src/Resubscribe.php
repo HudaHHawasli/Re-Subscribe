@@ -23,6 +23,7 @@ class Resubscribe
         if (defined('ABSPATH')) {
             add_action('init', [$this, 'registerScripts']);
             add_action('wp_enqueue_scripts', [$this, 'enqueueScripts']);
+            add_action('wp_footer', [$this, 'appendHtml']);
         }
     }
 
@@ -84,4 +85,28 @@ class Resubscribe
     {
         return $this->checkCookies();
     }
+
+    /**
+     * Append HTML to footer
+     *
+     * @return void
+     */
+    public function appendHtml()
+    {
+        $content = <<<EEE
+        <a data-remodal-target="modal" href="#modal">Call the modal with data-remodal-id="modal"</a>
+
+        <div class="remodal" data-remodal-id="modal" data-remodal-options="hashTracking: false">
+            <h2>النشرة البريدية</h2>
+            <p>يرجى إدخال بريدك الإلكتروني للاشتراك بالنشرة البريدية</p>
+            <input type="email" name="email" placeholder="Email address (e.g. example@company.com)" dir="ltr">
+            <br>
+            <a class="remodal-confirm" href="#">تسجيل</a>
+            <a class="remodal-cancel" href="#">إلغاء</a>
+        </div>
+
+EEE;
+        echo $content;
+    }
+
 }
