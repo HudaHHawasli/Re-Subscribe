@@ -33,8 +33,8 @@ class Resubscribe
      */
     public function registerScripts()
     {
-        wp_register_script('remodal', plugin_url('assets/jquery.remodal.min.js', __FILE__), ['jquery'], null, true);
-        wp_register_style('remodal', plugin_url('assets/jquery.remodal.css'));
+        wp_register_script('remodal', plugins_url('../assets/jquery.remodal.min.js', __FILE__), ['jquery'], null, true);
+        wp_register_style('remodal', plugins_url('../assets/jquery.remodal.css', __FILE__));
     }
 
     /**
