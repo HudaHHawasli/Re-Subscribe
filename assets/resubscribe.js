@@ -15,4 +15,8 @@ jQuery(window).load(function () {
     };
     jQuery('[data-remodal-id=modal]').remodal(options).open();
 
+    jQuery(document).on('confirm', '.remodal', function () {
+        // Handle form submittion here (Ajax?)
+        jQuery(this).find("form").submit();
+    });
 });
