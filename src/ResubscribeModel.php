@@ -16,13 +16,14 @@ class ResubscribeModel
     public static function activation()
     {
         $charset_collate = '';
+        global $wpdb;
 
         if (!empty($wpdb->charset)) {
-            $charset_collate = "DEFAULT CHARACTER SET {$this->wpdb->charset}";
+            $charset_collate = "DEFAULT CHARACTER SET {$wpdb->charset}";
         }
 
-        if (!empty($this->wpdb->collate)) {
-            $charset_collate .= " COLLATE {$this->wpdb->collate}";
+        if (!empty($wpdb->collate)) {
+            $charset_collate .= " COLLATE {$wpdb->collate}";
         }
 
         $table = $wpdb->prefix.static::$table_name;
