@@ -66,4 +66,13 @@ class ResubscribeModel
 
         return $this->wpdb->insert_id;
     }
+
+    public function get($page = 1, $limit = 2)
+    {
+        $start = ($page - 1) * $limit;
+        $sql = "SELECT * FROM {$this->table} LIMIT %d, %d";
+        $query = $this->wpdb->prepare($sql, $start, $limit);
+
+        return $this->wpdb->get_results($query);
+    }
 }
