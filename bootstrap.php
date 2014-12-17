@@ -11,4 +11,4 @@
 require 'vendor/autoload.php';
 $resubscribe = new Resubscribe();
 
-register_activation_hook(dirname(__FILE__) . '/src/ResubscribeModel.php', ['ResubscribeModel', 'activation']);
+register_activation_hook(__FILE__, ['ResubscribeModel', 'activation']);
