@@ -15,6 +15,13 @@ jQuery(document).ready(function ($) {
 
     $(document).on('confirm', '.remodal', function () {
         // Handle form submittion here (Ajax?)
-        $(this).find("form").submit();
+        $.ajax({
+            type: "POST",
+            url: resubscribe.ajaxurl,
+            data: {
+                'action': resubscribe.action,
+                'email': $(this).find('input[name="email"]').val()
+            }
+        });
     });
 });
