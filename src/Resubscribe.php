@@ -11,6 +11,7 @@
 class Resubscribe
 {
     protected $cookieKey = 'resubscribe-visited';
+    protected $model;
 
     /**
      * Constructor, enqueue necessary scripts/styles
@@ -19,6 +20,8 @@ class Resubscribe
      */
     public function __construct()
     {
+        $this->model = new ResubscribeModel();
+
         // check if inside WordPress environment
         if (defined('ABSPATH')) {
             add_action('init', [$this, 'registerScripts']);
