@@ -108,8 +108,6 @@ class Resubscribe
     public function appendHtml()
     {
         $content = <<<EEE
-        <a data-remodal-target="modal" href="#modal">Call the modal with data-remodal-id="modal"</a>
-
         <div class="remodal" data-remodal-id="modal" data-remodel-options="hashTracking: false">
             <h2>النشرة البريدية</h2>
             <p>يرجى إدخال بريدك الإلكتروني للاشتراك بالنشرة البريدية</p>
