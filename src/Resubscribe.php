@@ -11,6 +11,7 @@
 class Resubscribe
 {
     protected $cookieKey = 'resubscribe-visited';
+    protected $ajaxHandler = 'resubscribe_add_email';
     protected $model;
 
     /**
@@ -27,6 +28,7 @@ class Resubscribe
             add_action('init', [$this, 'registerScripts']);
             add_action('wp_enqueue_scripts', [$this, 'enqueueScripts']);
             add_action('wp_footer', [$this, 'appendHtml']);
+            add_action('wp_ajax_' . $this->ajaxHandler, [$this, 'ajaxHandlerCallback']);
         }
     }
 
@@ -53,7 +55,9 @@ class Resubscribe
 
         wp_localize_script('resubscribe', 'resubscribe', [
                                                             'key' => $this->cookieKey,
-                                                            'domain' => $domain
+                                                            'domain' => $domain,
+                                                            'ajaxurl' => admin_url('admin-ajax.php'),
+                                                            'action'  => $this->ajaxHandler
                                                          ]);
         wp_enqueue_script('resubscribe');
         wp_enqueue_style('remodal');
@@ -116,5 +120,16 @@ class Resubscribe
         </div>
 EEE;
         echo $content;
+    }
+
+    public function ajaxHandlerCallback()
+    {
+        $email = isset($_POST['email']) ? is_email($_POST['email']) : false;
+
+        if($email != false) {
+            $this->model->addEmail($email);
+        }
+
+        die();
     }
 }
