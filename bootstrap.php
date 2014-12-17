@@ -7,5 +7,8 @@
  * Author URI: http://aalakkad.me
  * License: MIT
  */
+
 require 'vendor/autoload.php';
 $resubscribe = new Resubscribe();
+
+register_activation_hook(dirname(__FILE__) . '/src/ResubscribeModel.php', ['ResubscribeModel', 'activation']);
