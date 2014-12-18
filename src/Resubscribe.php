@@ -140,6 +140,7 @@ EEE;
 
         if ($email != false) {
             $this->model->addEmail($email);
+            $this->setCookies();
         }
 
         die();
