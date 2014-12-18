@@ -8,7 +8,10 @@
  * License: MIT
  */
 
-require 'vendor/autoload.php';
+if (file_exists('vendor/autoload.php')) {
+    include 'vendor/autoload.php';
+}
+
 $resubscribe = new Resubscribe();
 
 register_activation_hook(__FILE__, ['ResubscribeModel', 'activation']);
