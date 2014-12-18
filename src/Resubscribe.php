@@ -60,22 +60,6 @@ class Resubscribe
         wp_enqueue_script('resubscribe');
         wp_enqueue_style('remodal');
     }
-    /**
-     * check if cookies with $cookieKey exists
-     *
-     * @return bool
-     */
-    public function checkCookies()
-    {
-        if (isset($_COOKIES[$this->cookieKey]) and $_COOKIES[$this->cookieKey] == true) {
-            return true;
-        }
-        if (isset($_SESSION[$this->cookieKey]) and $_SESSION[$this->cookieKey] == true) {
-            return true;
-        }
-
-        return false;
-    }
 
     /**
      * set cookie with the $cookieKey
@@ -97,16 +81,6 @@ class Resubscribe
     private function getDomain()
     {
         return preg_replace('/(?:https?:\/\/)?(?:www\.)?(.*)/', '$1', get_home_url());
-    }
-
-    /**
-     * Wrapper for checkCookies()
-     *
-     * @return bool
-     */
-    public function canDisplay()
-    {
-        return $this->checkCookies();
     }
 
     /**
