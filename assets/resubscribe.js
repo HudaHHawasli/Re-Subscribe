@@ -1,8 +1,9 @@
 jQuery(document).ready(function ($) {
 
-    // save cookie for 100 days
-    var days = 1000 * 60 * 60 * 24 * 100;
-    var expires = new Date((new Date()).valueOf() + days);
+    // If cookie exists don't show the modal
+    if(document.cookie.indexOf(resubscribe.key) == -1) {
+        return;
+    }
 
     // display popup after 20 seconds.
     setTimeout(function () {
@@ -21,4 +22,5 @@ jQuery(document).ready(function ($) {
             }
         });
     });
+
 });
