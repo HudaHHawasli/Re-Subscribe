@@ -28,7 +28,7 @@ class Resubscribe
             add_action('init', [$this, 'registerScripts']);
             add_action('wp_enqueue_scripts', [$this, 'enqueueScripts']);
             add_action('wp_footer', [$this, 'appendHtml']);
-            add_action('wp_ajax_' . $this->ajaxHandler, [$this, 'ajaxHandlerCallback']);
+            add_action('wp_ajax_'.$this->ajaxHandler, [$this, 'ajaxHandlerCallback']);
         }
     }
 
@@ -51,11 +51,9 @@ class Resubscribe
      */
     public function enqueueScripts()
     {
-        $domain = preg_replace('/(?:https?:\/\/)?(?:www\.)?(.*)/', '$1', get_home_url());
-
         wp_localize_script('resubscribe', 'resubscribe', [
-                                                            'key' => $this->cookieKey,
-                                                            'domain' => $domain,
+                                                            'key'     => $this->cookieKey,
+                                                            'domain'  => $this->getDomain(),
                                                             'ajaxurl' => admin_url('admin-ajax.php'),
                                                             'action'  => $this->ajaxHandler
                                                          ]);
@@ -86,8 +84,19 @@ class Resubscribe
      */
     public function setCookies()
     {
-        $_COOKIES[$this->cookieKey] = true;
+        // set the cookie to expire after 30 days
+        setcookie($this->cookieKey, true, time() + 60*60*24*30, '/', $this->getDomain());
         $_SESSION[$this->cookieKey] = true;
+    }
+
+    /**
+     * Return domain without any leading www. or http://
+     *
+     * @return string
+     */
+    private function getDomain()
+    {
+        return preg_replace('/(?:https?:\/\/)?(?:www\.)?(.*)/', '$1', get_home_url());
     }
 
     /**
@@ -120,11 +129,16 @@ EEE;
         echo $content;
     }
 
+    /**
+     * Handle AJAX requests
+     *
+     * @return void
+     */
     public function ajaxHandlerCallback()
     {
         $email = isset($_POST['email']) ? is_email($_POST['email']) : false;
 
-        if($email != false) {
+        if ($email != false) {
             $this->model->addEmail($email);
         }
 
