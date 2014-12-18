@@ -1,7 +1,7 @@
 jQuery(document).ready(function ($) {
 
     // If cookie exists don't show the modal
-    if(document.cookie.indexOf(resubscribe.key) == -1) {
+    if(document.cookie.indexOf(resubscribe.key) != -1) {
         return;
     }
 
