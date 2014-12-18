@@ -85,7 +85,7 @@ class Resubscribe
     public function setCookies()
     {
         // set the cookie to expire after 30 days
-        setcookie($this->cookieKey, true, time() + 60*60*24*30, '/', $this->getDomain());
+        setcookie($this->cookieKey, true, time() + 60*60*24*30, '/');
         $_SESSION[$this->cookieKey] = true;
     }
 
