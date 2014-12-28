@@ -14,6 +14,9 @@ class Resubscribe
     protected $ajaxHandler = 'resubscribe_add_email';
     protected $cookieExpirationDays = 30;
     protected $model;
+    static public $footer_box_text = 'انقر هنا للاشتراك بالنشرة البريدية';
+    static public $main_text = 'يرجى إدخال بريدك الإلكتروني للاشتراك بالنشرة البريدية';
+    static public $main_title = 'النشرة البريدية';
 
     /**
      * Constructor, enqueue necessary scripts/styles
@@ -30,6 +33,7 @@ class Resubscribe
             add_action('wp_enqueue_scripts', [$this, 'enqueueScripts']);
             add_action('wp_footer', [$this, 'appendHtml']);
             add_action('wp_ajax_'.$this->ajaxHandler, [$this, 'ajaxHandlerCallback']);
+            add_action('admin_menu', [$this, 'addDashboardPage']);
         }
     }
 
@@ -82,18 +86,22 @@ class Resubscribe
      */
     public function appendHtml()
     {
+        $main_title = get_option('resubscribe-main-title', static::$main_title);
+        $main_text = get_option('resubscribe-main-text', static::$main_text);
+        $footer_box_text = get_option('resubscribe-footer-box-text', static::$footer_box_text);
+
         $content = <<<EEE
-        <div id="resubscribe-footer-box">
-            <div class="subscribe"><a href="#">انقر هنا للاشتراك بالنشرة البريدية</a></div>
-            <div class="close"><a href="#">X</a></div>
-        </div>
         <div class="remodal" data-remodal-id="modal" data-remodel-options="hashTracking: false">
-            <h2>النشرة البريدية</h2>
-            <p>يرجى إدخال بريدك الإلكتروني للاشتراك بالنشرة البريدية</p>
+            <h2>{$main_title}</h2>
+            <p>{$main_text}</p>
             <input type="email" name="email" placeholder="Email address (e.g. example@company.com)" dir="ltr">
             <br>
             <a class="remodal-confirm" href="#">تسجيل</a>
             <a class="remodal-cancel" href="#">إلغاء</a>
+        </div>
+        <div id="resubscribe-footer-box">
+            <div class="subscribe"><a href="#">{$footer_box_text}</a></div>
+            <div class="close"><a href="#">X</a></div>
         </div>
 EEE;
         echo $content;
@@ -113,5 +121,12 @@ EEE;
         }
 
         die();
+    }
+
+    public function addDashboardPage()
+    {
+        add_options_page( 'Re-Subscribe Options', 'Re-Subscribe Options', 'manage_options', 're-subscribe', function() {
+            include_once 'inc/dashboard_menu.php';
+        });
     }
 }
