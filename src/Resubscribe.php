@@ -12,6 +12,7 @@ class Resubscribe
 {
     protected $cookieKey = 'resubscribe-visited';
     protected $ajaxHandler = 'resubscribe_add_email';
+    protected $cookieExpirationDays = 30;
     protected $model;
 
     /**
@@ -41,6 +42,7 @@ class Resubscribe
     {
         wp_register_script('remodal', plugins_url('../assets/jquery.remodal.js', __FILE__), ['jquery'], null, true);
         wp_register_style('remodal', plugins_url('../assets/jquery.remodal.css', __FILE__));
+        wp_register_style('resubscribe', plugins_url('../assets/resubscribe.css', __FILE__));
         wp_register_script('resubscribe', plugins_url('../assets/resubscribe.js', __FILE__), ['jquery', 'remodal'], null, true);
     }
 
@@ -52,25 +54,15 @@ class Resubscribe
     public function enqueueScripts()
     {
         wp_localize_script('resubscribe', 'resubscribe', [
-                                                            'key'     => $this->cookieKey,
-                                                            'domain'  => $this->getDomain(),
-                                                            'ajaxurl' => admin_url('admin-ajax.php'),
-                                                            'action'  => $this->ajaxHandler
+                                                            'key'             => $this->cookieKey,
+                                                            'expiration_days' => $this->cookieExpirationDays,
+                                                            'domain'          => $this->getDomain(),
+                                                            'ajaxurl'         => admin_url('admin-ajax.php'),
+                                                            'action'          => $this->ajaxHandler
                                                          ]);
         wp_enqueue_script('resubscribe');
         wp_enqueue_style('remodal');
-    }
-
-    /**
-     * set cookie with the $cookieKey
-     *
-     * @return void
-     */
-    public function setCookies()
-    {
-        // set the cookie to expire after 30 days
-        setcookie($this->cookieKey, true, time() + 60*60*24*30, '/');
-        $_SESSION[$this->cookieKey] = true;
+        wp_enqueue_style('resubscribe');
     }
 
     /**
@@ -91,6 +83,10 @@ class Resubscribe
     public function appendHtml()
     {
         $content = <<<EEE
+        <div id="resubscribe-footer-box">
+            <div class="subscribe"><a href="#">انقر هنا للاشتراك بالنشرة البريدية</a></div>
+            <div class="close"><a href="#">X</a></div>
+        </div>
         <div class="remodal" data-remodal-id="modal" data-remodel-options="hashTracking: false">
             <h2>النشرة البريدية</h2>
             <p>يرجى إدخال بريدك الإلكتروني للاشتراك بالنشرة البريدية</p>
@@ -114,7 +110,6 @@ EEE;
 
         if ($email != false) {
             $this->model->addEmail($email);
-            $this->setCookies();
         }
 
         die();

@@ -1,0 +1,36 @@
+#resubscribe-footer-box {
+    display: none;
+    height: 14%;
+    position: fixed;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.9);
+    width: 100%;
+}
+
+#resubscribe-footer-box div {
+    display: block;
+    width: 75%;
+    padding: 4vh 5vw;
+    height: 100%;
+    float: right;
+}
+
+#resubscribe-footer-box div a {
+    color: #FFF;
+    font-weight: bold;
+}
+
+#resubscribe-footer-box .close {
+    max-width: 25%;
+}
+
+#resubscribe-footer-box .close {
+    background: #000;
+    border-radius: 50%;
+    padding: 9px;
+    height: 43px;
+    width: 43px;
+    text-align: center;
+    margin-top: 20px;
+    opacity: 0.6;
+}
