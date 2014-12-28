@@ -22,7 +22,7 @@ $footer_box_text = isset($footer_box_text) ? $footer_box_text : get_option('resu
 ?>
 <div class="wrap">
     <h2>Re-Subscribe Options</h2>
-    <form action="">
+    <form action="" method="post">
         <table class="form-table">
             <tr>
                 <th><label for="main-text">Modal title</label></th>
