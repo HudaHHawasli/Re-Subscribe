@@ -41,6 +41,7 @@ class Resubscribe
     {
         wp_register_script('remodal', plugins_url('../assets/jquery.remodal.js', __FILE__), ['jquery'], null, true);
         wp_register_style('remodal', plugins_url('../assets/jquery.remodal.css', __FILE__));
+        wp_register_style('resubscribe', plugins_url('../assets/resubscribe.css', __FILE__));
         wp_register_script('resubscribe', plugins_url('../assets/resubscribe.js', __FILE__), ['jquery', 'remodal'], null, true);
     }
 
@@ -59,6 +60,7 @@ class Resubscribe
                                                          ]);
         wp_enqueue_script('resubscribe');
         wp_enqueue_style('remodal');
+        wp_enqueue_style('resubscribe');
     }
 
     /**
