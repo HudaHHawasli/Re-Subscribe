@@ -91,6 +91,10 @@ class Resubscribe
     public function appendHtml()
     {
         $content = <<<EEE
+        <div id="resubscribe-footer-box">
+            <div class="subscribe"><a href="#">انقر هنا للاشتراك بالنشرة البريدية</a></div>
+            <div class="close"><a href="#">X</a></div>
+        </div>
         <div class="remodal" data-remodal-id="modal" data-remodel-options="hashTracking: false">
             <h2>النشرة البريدية</h2>
             <p>يرجى إدخال بريدك الإلكتروني للاشتراك بالنشرة البريدية</p>
