@@ -12,6 +12,7 @@ class Resubscribe
 {
     protected $cookieKey = 'resubscribe-visited';
     protected $ajaxHandler = 'resubscribe_add_email';
+    protected $cookieExpirationDays = 30;
     protected $model;
 
     /**
@@ -53,10 +54,11 @@ class Resubscribe
     public function enqueueScripts()
     {
         wp_localize_script('resubscribe', 'resubscribe', [
-                                                            'key'     => $this->cookieKey,
-                                                            'domain'  => $this->getDomain(),
-                                                            'ajaxurl' => admin_url('admin-ajax.php'),
-                                                            'action'  => $this->ajaxHandler
+                                                            'key'             => $this->cookieKey,
+                                                            'expiration_days' => $this->cookieExpirationDays,
+                                                            'domain'          => $this->getDomain(),
+                                                            'ajaxurl'         => admin_url('admin-ajax.php'),
+                                                            'action'          => $this->ajaxHandler
                                                          ]);
         wp_enqueue_script('resubscribe');
         wp_enqueue_style('remodal');
@@ -70,8 +72,10 @@ class Resubscribe
      */
     public function setCookies()
     {
-        // set the cookie to expire after 30 days
-        setcookie($this->cookieKey, true, time() + 60*60*24*30, '/');
+        // set expiration date after (x) days
+        $expiration =  time() + (60 * 60 * 24 * $this->cookieExpirationDays);
+        // set cookie with expiration date
+        setcookie($this->cookieKey, true, $expiration, '/');
         $_SESSION[$this->cookieKey] = true;
     }
 
