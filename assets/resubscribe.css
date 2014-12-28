@@ -1,5 +1,5 @@
 #resubscribe-footer-box {
-    display: block;
+    display: none;
     height: 20%;
     position: fixed;
     bottom: 0;
