@@ -66,20 +66,6 @@ class Resubscribe
     }
 
     /**
-     * set cookie with the $cookieKey
-     *
-     * @return void
-     */
-    public function setCookies()
-    {
-        // set expiration date after (x) days
-        $expiration =  time() + (60 * 60 * 24 * $this->cookieExpirationDays);
-        // set cookie with expiration date
-        setcookie($this->cookieKey, true, $expiration, '/');
-        $_SESSION[$this->cookieKey] = true;
-    }
-
-    /**
      * Return domain without any leading www. or http://
      *
      * @return string
@@ -124,7 +110,6 @@ EEE;
 
         if ($email != false) {
             $this->model->addEmail($email);
-            $this->setCookies();
         }
 
         die();
