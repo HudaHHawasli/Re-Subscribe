@@ -15,12 +15,14 @@ jQuery(document).ready(function ($) {
     // In footer-box, if close link clicked, then hide the footer-box
     $('#resubscribe-footer-box').find('.close a').click(function() {
         $('#resubscribe-footer-box').fadeOut();
+        return false;
     });
 
     // In footer-box, if subscribe link clicked, show the modal then hide the footer-box
     $('#resubscribe-footer-box').find('.subscribe a').click(function() {
         $inst.open();
         $('#resubscribe-footer-box').hide();
+        return false;
     });
 
     $(document).on('confirm', '.remodal', function () {
