@@ -1,6 +1,6 @@
 <?php
 
-if(isset($_POST)) {
+if(isset($_POST) and count($_POST)) {
     if(isset($_POST['main-text'])) {
         $main_text = $_POST['main-text'];
         update_option( 'resubscribe-main-text', $main_text );
@@ -14,11 +14,10 @@ if(isset($_POST)) {
         update_option( 'resubscribe-footer-box-text', $footer_box_text );
     }
 }
-else {
-    $main_title      = isset($main_title)      ? $main_title      : get_option('resubscribe-main-title', Resubscribe::$main_title);
-    $main_text       = isset($main_text)       ? $main_text       : get_option('resubscribe-main-text', Resubscribe::$main_text);
-    $footer_box_text = isset($footer_box_text) ? $footer_box_text : get_option('resubscribe-footer-box-text', Resubscribe::$footer_box_text);
-}
+
+$main_title      = isset($main_title)      ? $main_title      : get_option('resubscribe-main-title', Resubscribe::$main_title);
+$main_text       = isset($main_text)       ? $main_text       : get_option('resubscribe-main-text', Resubscribe::$main_text);
+$footer_box_text = isset($footer_box_text) ? $footer_box_text : get_option('resubscribe-footer-box-text', Resubscribe::$footer_box_text);
 
 ?>
 <div class="wrap">
