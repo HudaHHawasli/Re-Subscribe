@@ -39,16 +39,30 @@ jQuery(document).ready(function ($) {
         }, 20000);
     }
 
-    $(document).on('confirm', '.remodal', function () {
-        // Handle form submittion here (Ajax?)
-        $.ajax({
-            type: "POST",
-            url: resubscribe.ajaxurl,
-            data: {
-                'action': resubscribe.action,
-                'email': $(this).find('input[name="email"]').val()
+    $(document).on('keypress', function (e) {
+        if(e.which == 13) {
+            var email = $('.remodal').find('input[name="email"]').val();
+            if (email) {
+                ajax_request(email);
             }
-        });
+            $inst.close();
+        }
     });
 
+    $(document).on('confirm', '.remodal', function () {
+        // Handle form submittion here (Ajax?)
+        var email = $(this).find('input[name="email"]').val();
+        ajax_request(email);
+    });
+
+    function ajax_request(value) {
+        $.ajax({
+                type: "POST",
+                url: resubscribe.ajaxurl,
+                data: {
+                    'action': resubscribe.action,
+                    'email': value
+                }
+        });
+    }
 });
