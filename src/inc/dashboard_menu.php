@@ -25,7 +25,7 @@ $footer_box_text = isset($footer_box_text) ? $footer_box_text : get_option('resu
     <form action="" method="post">
         <table class="form-table">
             <tr>
-                <th><label for="main-text">Modal title</label></th>
+                <th><label for="main-title">Modal title</label></th>
                 <td><input type="text" name="main-title" value="<?= $main_title;?>"></td>
             </tr>
             <tr>
